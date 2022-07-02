@@ -32,4 +32,10 @@ class UserPolicy
     {
         return $currentUser->id === $user->id;
     }
+
+    //只有是管理员且删除的不是自己账户，才可以执行删除操作。
+    public function destroy(User $currentUser,User $user)
+    {
+        return $currentUser->is_admin && $currentUser->id !== $user->id;
+    }
 }

@@ -47,7 +47,7 @@ class UsersController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-        Auth;;login($user);
+        Auth::login($user);
         session()->flash('success','欢迎，您将在这里开启一段新的路程～');
         //返回用户个人页面
         return redirect()->route('users.show', [$user]);
@@ -90,5 +90,13 @@ class UsersController extends Controller
     {
         $users = User::paginate(6);
         return view('users.index', compact('users'));
+    }
+
+    public function destroy(User $user)
+    {
+        $this->authorize('destroy', $user);
+        $user->delete();
+        session()->flash('success', '成功删除用户！');
+        return back();
     }
 }
