@@ -12,6 +12,16 @@ use Carbon\Carbon;
 
 class PasswordController extends Controller
 {
+    public function __construct()
+    {
+        //对指定路由，限流访问一分钟两次
+        //$this->middleware('throttle:2.1',[
+        //对指定路由，限流访问十分钟内只能三次
+        //$this->middleware('throttle:3.10', [
+        //    'only' => ['showLinkRequestForm']
+        //]);
+    }
+
     /**
      * 显示密码邮件重置
      */
