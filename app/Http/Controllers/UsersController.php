@@ -30,9 +30,15 @@ class UsersController extends Controller
         return view('users.create');
     }
 
+    /**
+     * 显示用户页面，展示用户信息和其微博
+     */
     public function show(User $user)
     {
-        return view('users.show', compact('user'));
+        $statuses = $user->statuses()
+                    ->orderby('created_at','DESC')
+                    ->paginate(10);
+        return view('users.show', compact('user','statuses'));
     }
 
     /**
