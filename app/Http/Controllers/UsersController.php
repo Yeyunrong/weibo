@@ -140,11 +140,28 @@ class UsersController extends Controller
         return view('users.index', compact('users'));
     }
 
+    /**
+     * 管理员删除普通用户
+     */
     public function destroy(User $user)
     {
         $this->authorize('destroy', $user);
         $user->delete();
         session()->flash('success', '成功删除用户！');
         return back();
+    }
+
+    public function followings(User $user)
+    {
+        $users = $user->followings()->paginate(30);
+        $title = $user->name . '关注的人';
+        return view('users.show_follow', compact('users', 'title'));
+    }
+
+    public function followers(User $user)
+    {
+        $users = $user->followers()->paginate(30);
+        $title = $user->name . '的粉丝';
+        return view('users.show_follow', compact('users', 'title'));
     }
 }
