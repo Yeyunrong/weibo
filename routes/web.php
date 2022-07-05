@@ -37,3 +37,8 @@ Route::resource('statuses', 'StatusesController');
 Route::get('/users/{user}/followings', 'UsersController@followings')->name('users.followings');
 //显示粉丝列表
 Route::get('/users/{user}/followers', 'UsersController@followers')->name('users.followers');
+
+//关注
+Route::post('/users/followers/{user}', 'FollowersController@store')->name('followers.store');
+//取消关注
+Route::delete('/users/followers/{user}', 'FollowersController@destroy')->name('followers.destroy');
